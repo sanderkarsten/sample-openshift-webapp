@@ -1,16 +1,10 @@
-FROM ubuntu:20.04
-
-# Update and install necessary packages
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip \
-    ca-certificates
+FROM python:3.6
 
 # Update CA certificates
-RUN update-ca-certificates
+RUN apt-get update && apt-get install -y ca-certificates && update-ca-certificates
 
 # Install Flask, bypassing SSL verification
-RUN pip3 install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org flask
+RUN pip install --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org flask
 
 # Copy the application source code
 COPY app.py /opt/
